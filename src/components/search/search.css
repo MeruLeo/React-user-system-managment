@@ -1,0 +1,25 @@
+.input-wrapper {
+    background-color: #EFEFF3;
+    margin: 1rem;
+    border-radius: 5rem;
+    display: flex;
+    align-items: center;
+    transition: all .3 ease;
+}
+.input-wrapper input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.input-wrapper i {
+    border-right: 1px solid #000;
+    margin-left: 1rem;
+    padding-right: 1rem;
+}
+.input-wrapper input:focus .input-wrapper {
+    border: 1px solid #000;
+}
