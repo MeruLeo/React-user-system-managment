@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./search/search";
 import User from "./user/user";
+import NewUser from "./user/newUser";
 
 const Main = () => {
   const [users, setUsers] = useState([]);
@@ -47,6 +48,8 @@ const Main = () => {
       {filterUsers().map((user, index) => (
         <User key={index} userName={user.name} userBio={user.bio} />
       ))}
+
+      <NewUser />
 
       <button className="add-user">
         Add new user <i className="fa-solid fa-circle-plus"></i>
