@@ -1,8 +1,10 @@
-// Main.js
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
+import UsersContext from "../context/users";
 import SearchBar from "./search/search";
 import User from "./user/user";
-import NewUser from "./user/newUser";
+import Users from "./user/users";
+import NewUser from "./user/newUser/newUser";
 
 const Main = () => {
   const [users, setUsers] = useState([]);
@@ -14,7 +16,7 @@ const Main = () => {
 
   useEffect(() => {
     const filteredUsers = users.filter((user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     document.title = `${filteredUsers.length} User(s)`;
   }, [searchTerm, users]);
@@ -34,26 +36,31 @@ const Main = () => {
   }
 
   function filterUsers() {
-    return users.filter((user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    if (!users) return [];
+
+    return users.filter(
+      (user) =>
+        user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }
 
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <UsersContext.Provider
+        value={{
+          users: users,
+          searchUsersByName: filterUsers(),
+          onSearch: handleSearch,
+        }}
+      >
+        <SearchBar />
 
-      <h1 style={{ margin: "1rem" }}>{filterUsers().length} User</h1>
+        <h1 style={{ margin: "1rem" }}>{filterUsers().length} User</h1>
 
-      {filterUsers().map((user, index) => (
-        <User key={index} userName={user.name} userBio={user.bio} />
-      ))}
+        <Users />
 
-      <NewUser />
-
-      <button className="add-user">
-        Add new user <i className="fa-solid fa-circle-plus"></i>
-      </button>
+        <NewUser />
+      </UsersContext.Provider>
     </>
   );
 };

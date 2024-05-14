@@ -1,8 +1,11 @@
-// search.js
 import React from "react";
 import "../search/search.css";
+import UsersContext from "../../context/users";
+import { useContext } from "react";
 
 const SearchBar = ({ onSearch }) => {
+  const usersContext = useContext(UsersContext);
+
   return (
     <>
       <div className="input-wrapper">
@@ -10,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
         <input
           type="text"
           placeholder="Search to find user"
-          onChange={onSearch}
+          onChange={usersContext.onSearch}
         />
       </div>
     </>
